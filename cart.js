@@ -7,16 +7,20 @@ function calculateTotal(items, discountCode) {
     return 0;
   }
 
-  let total = items.reduce((sum, item) => {
+  const subtotal = items.reduce((sum, item) => {
     return sum + item.price * item.qty;
   }, 0);
+
+  let total = subtotal;
 
   if (discountCode === 'STUDENT10') {
     total = total * 0.9;
   }
 
-  // Tahtlik viga: saatmiskulu tingimus tuleb testide abil leida.
-  if (total <= 100) {
+  // Parandatud: saatmiskulu lisandub ainult alla 100 € ostule
+  // (ostusumma enne allahindlust).
+  const freeShipping = subtotal >= 100;
+  if (!freeShipping) {
     total += 5;
   }
 
