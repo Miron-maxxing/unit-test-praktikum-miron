@@ -18,8 +18,8 @@ function calculateTotal(items, discountCode) {
   }
 
   // Parandatud: saatmiskulu lisandub ainult alla 100 € ostule
-  // (ostusumma enne allahindlust).
-  const freeShipping = subtotal >= 100;
+  // (ostusumma enne allahindlust). FREESHIP korral on saatmine alati tasuta.
+  const freeShipping = subtotal >= 100 || discountCode === 'FREESHIP';
   if (!freeShipping) {
     total += 5;
   }
